@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hyeonseong Kim</title>
+<meta name="description" content="Hyeonseong Kim — ML researcher" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Martian+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  /* 기본 라이트 모드 색상 */
+  :root {
+    --paper: #ffffff;
+    --ink: #111111;
+    --ink-soft: #45453f;
+    --muted: #9a9a9a;
+    --muted-deep: #6a6a68;
+    --line-top: rgba(17, 17, 17, 0.85);
+    --line-strong: rgba(17, 17, 17, 0.55);
+    --sans: "Archivo", "Helvetica Neue", Helvetica, sans-serif;
+    --mono: "Martian Mono", ui-monospace, monospace;
+  }
+
+  /* 시스템 설정이 다크 모드일 때 덮어쓸 색상 */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0a0a0a;
+      --ink: #f5f5f5;
+      --ink-soft: #b0b0b0;
+      --muted: #666666;
+      --muted-deep: #888888;
+      --line-top: rgba(245, 245, 245, 0.75);
+      --line-strong: rgba(245, 245, 245, 0.3);
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; background: var(--paper); }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum" 1;
+  }
+
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: clamp(3rem, 9vw, 5.5rem) clamp(1.4rem, 6vw, 3rem) clamp(3rem, 8vw, 4.5rem);
+  }
+
+  /* ---------- header ---------- */
+  .name {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: clamp(2.3rem, 12vw, 4.5rem);
+    line-height: 0.9;
+    max-width: 100%;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+  }
+  @media (min-width: 700px) {
+    .name {
+      flex-direction: row;
+      gap: 0.28em;
+      font-size: clamp(3.2rem, 6vw, 4rem);
+      line-height: 1;
+    }
+  }
+
+  .affil {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-top: 1.3rem;
+    max-width: 52ch;
+  }
+
+  .contact {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 1px;
+    margin-top: 0.95rem;
+    transition: border-color 0.2s ease;
+  }
+  .contact:hover { border-bottom-color: var(--ink); }
+
+  /* ---------- 깔끔하게 다듬어진 interests ---------- */
+  .interests {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-top: 1.8rem;
+    max-width: 65ch;
+  }
+  .interests .ri-label {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-right: 0.4rem;
+  }
+
+  /* ---------- section label (shared) ---------- */
+  .label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted-deep);
+    padding: clamp(2.4rem, 6vw, 3.4rem) 0 0.85rem;
+  }
+
+  /* ---------- shared list frame ---------- */
+  .list { list-style: none; border-top: 1px solid var(--line-top); }
+
+  /* ---------- links ---------- */
+  .links a {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.92rem 0.1rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: padding-left 0.32s cubic-bezier(0.22,1,0.36,1);
+  }
+  .links .lk-name {
+    font-family: var(--sans);
+    font-size: clamp(1.15rem, 4vw, 1.45rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    flex-shrink: 0;
+  }
+  .links .lk-sub {
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+    flex: 1;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .links .arrow {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.26s ease, transform 0.26s ease;
+    flex-shrink: 0;
+    width: 0.9rem;
+  }
+  @media (hover: hover) {
+    .links a:hover { padding-left: 1rem; }
+    .links a:hover .arrow { opacity: 1; transform: translateX(0); }
+  }
+  .links a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  /* ---------- selected work ---------- */
+  .pub { padding: 1.25rem 0.1rem; }
+  .pub .venue {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .pub .venue.ongoing { color: var(--muted); }
+  .pub .pub-title {
+    font-family: var(--sans);
+    font-size: clamp(1.06rem, 3.2vw, 1.24rem);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+  }
+  .pub .authors {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    margin-top: 0.55rem;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+  }
+  .pub .authors .me { color: var(--ink); font-weight: 500; border-bottom: 1.5px solid var(--ink); }
+  .pub .pub-links {
+    margin-top: 0.7rem;
+    display: flex;
+    gap: 1.1rem;
+    font-family: var(--mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.04em;
+  }
+  .pub .pub-links a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+    padding-bottom: 1px;
+    transition: border-color 0.2s ease;
+  }
+  .pub .pub-links a:hover { border-bottom-color: var(--ink); }
+
+  /* ---------- entrance ---------- */
+  .reveal { opacity: 0; transform: translateY(12px); animation: rise 0.6s cubic-bezier(0.22,1,0.36,1) forwards; }
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .d1 { animation-delay: 0.04s; }
+  .d2 { animation-delay: 0.12s; }
+  .d3 { animation-delay: 0.20s; }
+  .d4 { animation-delay: 0.28s; }
+  .d5 { animation-delay: 0.36s; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; transform: none; }
+    .links a { transition: none; }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 480px) {
+    .links a { gap: 0.7rem; }
+    .links .lk-sub { font-size: 0.6rem; }
+    .pub .authors { font-size: 0.66rem; }
+  }
+  @media (max-width: 360px) {
+    .links .lk-sub { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1 class="name reveal d1"><span>Hyeonseong</span><span>Kim</span></h1>
+    <div class="affil reveal d2">Research Officer, Agency for Defense Development · B.S. Computer Science, Hanyang University</div>
+    <a class="contact reveal d2" href="mailto:hyeonseong03@hanyang.ac.kr">hyeonseong03@hanyang.ac.kr</a>
+    
+    <div class="interests reveal d3">
+      <span class="ri-label">Research Interests //</span>
+      Adversarial Machine Learning · Robustness · LLM Safety &amp; Jailbreaking · Generalization Theory · Information Geometry
+    </div>
+  </header>
+
+  <div class="label reveal d4">Links</div>
+  <ul class="list links reveal d4">
+    <li>
+      <a href="https://scholar.google.com/citations?user=K6z3vGUAAAAJ" target="_blank" rel="noopener">
+        <span class="lk-name">Google Scholar</span><span class="lk-sub">publications</span><span class="arrow">&rarr;</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://github.com/hyeonseong03" target="_blank" rel="noopener">
+        <span class="lk-name">GitHub</span><span class="lk-sub">code</span><span class="arrow">&rarr;</span>
+      </a>
+    </li>
+    <li>
+      <a href="https://www.linkedin.com/in/hyeonseong-kim-4028693a1/" target="_blank" rel="noopener">
+        <span class="lk-name">LinkedIn</span><span class="lk-sub">profile</span><span class="arrow">&rarr;</span>
+      </a>
+    </li>
+    <li>
+      <a href="cv.pdf" target="_blank" rel="noopener">
+        <span class="lk-name">Curriculum Vitae</span><span class="lk-sub">pdf</span><span class="arrow">&rarr;</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="label reveal d5">Selected work</div>
+  <ul class="list pubs reveal d5">
+    <li class="pub">
+      <div class="venue">ICML 2026</div>
+      <div class="pub-title">Inconsistency-Aware Minimization: Improving Generalization with Unlabeled Data</div>
+      <div class="authors">Hee-Sung Kim, <span class="me">Hyeonseong Kim</span>, Sungyoon Lee</div>
+      <div class="pub-links">
+        <a href="https://arxiv.org/abs/2605.31324" target="_blank" rel="noopener">arXiv</a>
+        <a href="https://github.com/heesung-k/IAM" target="_blank" rel="noopener">code</a>
+      </div>
+    </li>
+    
+    <li class="pub">
+      <div class="venue ongoing">Ongoing Work</div>
+      <div class="pub-title">...(LLM Jailbreak, Interpretability)...</div>
+      <div class="authors"><span class="me">Hyeonseong Kim</span></div>
+    </li>
+  </ul>
+
+</div>
+</body>
+</html>
